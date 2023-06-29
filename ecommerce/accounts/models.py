@@ -22,6 +22,7 @@ def sendEmailToken(sender, instance, created, **kwargs):
     try:
         if created:
             email_token = str(uuid.uuid4())
+            Profile.objects.create(user=instance, email_token=email_token)
             email = instance.email
             sendAccountActivationEmail(email, email_token)
     except Exception as e:
